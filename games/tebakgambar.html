@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head></head>
+  <body>
+    <img id="gambar" />
+    <p id="dekripsi" />
+    <script>
+      var textArray = [];
+
+      function loadJSON(url) {
+        return new Promise((resolve, reject) => {
+          var xhr = new XMLHttpRequest();
+          xhr.open("GET", url);
+          xhr.responseType = "json";
+          xhr.onload = function () {
+            if (xhr.status === 200) {
+              resolve(xhr.response);
+            } else {
+              reject(Error("Gagal memuat JSON"));
+            }
+          };
+          xhr.onerror = function () {
+            reject(Error("Gagal memuat JSON"));
+          };
+          xhr.send();
+        });
+      }
+
+      loadJSON("./tebakgambar.json")
+        .then((json) => {
+          var jsonArray = json;
+          jsonArray.forEach((item) => {
+            textArray.push(item);
+          });
+          var gam = textArray[ran].img;
+
+          var imgElement = document.getElementById("gambar");
+          imgElement.src = gam;
+          
+          var deks = textArray[ran].deskripsi;
+          console.log(deks);
+          
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+        var ran = Math.floor(Math.random() * 999);
+    </script>
+  </body>
+</html>
